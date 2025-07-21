@@ -1,0 +1,18 @@
+﻿@inject NavigationManager NavManager
+@using Transaction_Flow.Components.Layout
+
+<Router AppAssembly="@typeof(MauiProgram).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(Layout.MainLayout)" />
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+    </Found>
+    <NotFound>
+        <LayoutView Layout="@typeof(Layout.MainLayout)">
+            <p>Sorry, the page you're looking for could not be found.</p>
+        </LayoutView>
+    </NotFound>
+</Router>
+
+@code {
+    private Type DefaultLayout => NavManager.Uri.Contains("/login") ? typeof(Layout.LoginLayout) : typeof(Layout.MainLayout);
+}

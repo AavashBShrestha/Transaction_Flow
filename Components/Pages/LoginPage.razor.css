@@ -1,0 +1,83 @@
+﻿.login-container {
+    background-color: darkslategrey;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    margin: 0 auto;
+}
+
+
+/* Form styling */
+::deep .form {
+    justify-content: center;
+    margin: auto;
+    padding: 30px;
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    background-color: #f9f9f9;
+    height: 550px;
+}
+
+/* Form heading */
+.form__heading {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333333;
+}
+
+/* Label styling */
+.form__label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.5rem;
+    color: #666666;
+    text-align: left;
+}
+
+/* Input fields styling */
+::deep .form__input,
+::deep .form__select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+    ::deep .form__input:focus,
+    ::deep .form__select:focus {
+        border-color: #2575fc;
+    }
+
+/* Button styling */
+::deep .form__button {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ffffff;
+    background: #2575fc;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    ::deep .form__button:hover {
+        background-color: #1b5fc6;
+    }
+
+/* Validation summary styling */
+.form__validation-summary {
+    color: #ff4d4d;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}

@@ -1,0 +1,89 @@
+﻿@page "/home"
+@using Transaction_Flow.Model
+@using Transaction_Flow.Services
+
+<h3>Dashboard</h3>
+
+<div class="dashboard">
+    <div class="statistics">
+        <div class="stat">
+            <h4>Total Inflows</h4>
+            <p>@TotalInflows</p>
+        </div>
+        <div class="stat">
+            <h4>Total Outflows</h4>
+            <p>@TotalOutflows</p>
+        </div>
+        <div class="stat">
+            <h4>Total Debt</h4>
+            <p>@TotalDebt</p>
+        </div>
+        <div class="stat">
+            <h4>Cleared Debt</h4>
+            <p>@ClearedDebt</p>
+        </div>
+        <div class="stat">
+            <h4>Remaining Debt</h4>
+            <p>@RemainingDebt</p>
+        </div>
+    </div>
+
+    <div class="transactions">
+        <h4>Top Transactions</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Tags</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @* @foreach (var transaction in TopTransactions) *@
+                @* { *@
+                @*         <tr> *@
+                @*             <td>@transaction.Title</td> *@
+                @*             <td>@transaction.Type</td> *@
+                @*             <td>@transaction.Amount</td> *@
+                @*             <td>@string.Join(", ", transaction.Tags)</td> *@
+                @*             <td>@transaction.Date.ToShortDateString()</td> *@
+                @*         </tr> *@
+                @* } *@
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pending-debts">
+        <h4>Pending Debts</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Source</th>
+                    <th>Due Date</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                @* @foreach (var debt in PendingDebts) *@
+                @* { *@
+                @*         <tr> *@
+                @*             <td>@debt.Source</td> *@
+                @*             <td>@debt.DueDate.ToShortDateString()</td> *@
+                @*             <td>@debt.Amount</td> *@
+                @*         </tr> *@
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    // Example data for demonstration. Replace with actual data binding.
+    private decimal TotalInflows = 1000m;
+    private decimal TotalOutflows = 700m;
+    private decimal TotalDebt = 300m;
+    private decimal ClearedDebt = 150m;
+    private decimal RemainingDebt = 150m;
+}

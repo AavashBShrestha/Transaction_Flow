@@ -1,0 +1,62 @@
+﻿.debt-management {
+    padding: 1rem;
+}
+
+.actions {
+    margin-bottom: 1rem;
+}
+
+    .actions button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .actions button:hover {
+            background-color: #0056b3;
+        }
+
+.debt-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+    .debt-table th, .debt-table td {
+        border: 1px solid #ddd;
+        padding: 0.75rem;
+        text-align: left;
+    }
+
+    .debt-table th {
+        background-color: #f8f9fa;
+    }
+
+    .debt-table button {
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        padding: 0.25rem 0.5rem;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+        .debt-table button:hover {
+            background-color: #218838;
+        }
+
+        .debt-table button:nth-child(2) {
+            background-color: #dc3545;
+        }
+
+            .debt-table button:nth-child(2):hover {
+                background-color: #c82333;
+            }
+
+        .debt-table button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }

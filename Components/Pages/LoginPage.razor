@@ -1,0 +1,60 @@
+﻿@page "/"
+@using Transaction_Flow.Model;
+@using Transaction_Flow.Services;
+@layout Transaction_Flow.Components.Layout.LoginLayout;
+@inject NavigationManager NavManager
+@inject UserService UserService
+@using System.Diagnostics
+
+
+
+<div class="login-container">
+    <EditForm Model="userModel" OnSubmit="HandleLogin" class="form">
+        <h3 class="form__heading">Login</h3>
+
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div>
+            <label class="form__label">Username:</label>
+            <InputText type="text" @bind-Value="userModel.Username" class="form__input" placeholder="UserName" />
+        </div>
+        <div>
+            <label class="form__label">Currency:</label>
+            <InputSelect TValue="String" class="form__select" @bind-Value="userModel.PreferredCurrency">
+                <option value="Dollar">$Dollar</option>
+                <option value="Euro">€Euro</option>
+                <option value="Nrp">Nrp</option>
+            </InputSelect>
+        </div>
+        <div>
+            <label class="form__label">Password:</label>
+            <InputText type="Password" @bind-Value="userModel.Password" class="form__input" placeholder="Password" />
+        </div>
+        <button type="submit">Login</button>
+    </EditForm>
+</div>
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <p style="color:red">@errorMessage</p>
+}
+
+@code {
+    private UserModel userModel = new();
+    private string? errorMessage;
+
+    private void HandleLogin()
+    {
+        var user = UserService.GetUserByLogin(userModel.Username!, userModel.Password!);
+        if (user != null)
+        {
+            NavManager.NavigateTo("/home");
+        }
+        else
+        {
+            errorMessage = "Invalid username or password.";
+        }
+
+        Debug.WriteLine($"Trying to log in: {userModel.Username}, {userModel.Password}");
+    }
+}

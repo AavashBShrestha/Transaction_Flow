@@ -1,0 +1,118 @@
+﻿@page "/TransactionOV"
+@using Transaction_Flow.Model
+@using Transaction_Flow.Services
+@using Microsoft.AspNetCore.Components
+@using Transaction_Flow.Components
+@inject DatabaseService DatabaseService
+
+
+<h3>Transaction Overview</h3>
+
+<div class="transaction-overview">
+    <div class="actions">
+        <form>
+            <button type="button" @onclick="AddTransaction">Add Transaction</Button>
+        </form>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Tags</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transaction in Transactions)
+            {
+                    <tr>
+                        <td>@transaction.Title</td>
+                        <td>@transaction.TransactionType</td>
+                        <td>@transaction.Amount</td>
+                        <td>@string.Join(", ", transaction.Tags)</td>
+                        <td>@transaction.Date.ToShortDateString() ?? "N/A"</td>
+                        <td>
+                            <button @onclick="() => DeleteTransaction(transaction.Id)">Delete</button>
+                        </td>
+                    </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (IsModalVisible)
+{
+        <div class="modal">
+            <div class="modal-content">
+                <Components.Pages.TransactionForm Transaction="@SelectedTransaction" OnSubmit="SaveTransaction" OnCancel="CloseModal" />
+            </div>
+        </div>
+}
+
+@code {
+    private List<TransactionModel> Transactions = new();
+    private TransactionModel SelectedTransaction = new();
+    private bool IsModalVisible { get; set; }
+
+    [Inject]
+    private TransactionServices? TransactionService { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Fetch transactions from the service
+        if (TransactionService != null)
+        {
+            Transactions = await TransactionService.GetTransactionsAsync();
+        }
+    }
+
+    private TransactionModel newTransaction = new TransactionModel(); // Declare the transaction model
+
+    private async Task AddTransaction()
+    {
+        try
+        {
+            // Ensure DatabaseService is injected and accessible
+            await DatabaseService.AddTransaction(newTransaction); // Call the AddTransaction method on the injected DatabaseService
+            newTransaction = new TransactionModel(); // Reset the form after successful submission
+            Console.WriteLine("Transaction added successfully.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+    }
+
+
+    
+
+    private async Task SaveTransaction(TransactionModel transaction)
+    {
+        if (TransactionService != null)
+        {
+            await TransactionService.SaveTransaction(transaction);
+        }
+        await RefreshTransactions(); // Refresh the list of transactions
+        CloseModal();
+    }
+
+    private async Task DeleteTransaction(int transactionId)
+    {
+        await TransactionService.DeleteTransaction(transactionId);
+        await RefreshTransactions(); // Refresh the list after deletion
+    }
+
+    private async Task RefreshTransactions()
+    {
+        Transactions = await TransactionService.GetTransactionsAsync(); // Reload transactions
+    }
+
+    private void CloseModal()
+    {
+        IsModalVisible = false;
+    }
+}

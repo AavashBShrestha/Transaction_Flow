@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35913.81 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transaction_Flow", "Transaction_Flow.csproj", "{A0A295D1-351D-4C28-A60A-4CAD810ABCC3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A0A295D1-351D-4C28-A60A-4CAD810ABCC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0A295D1-351D-4C28-A60A-4CAD810ABCC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0A295D1-351D-4C28-A60A-4CAD810ABCC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0A295D1-351D-4C28-A60A-4CAD810ABCC3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6EC229BC-751F-4D4D-B8D2-17E6C6CF9989}
+	EndGlobalSection
+EndGlobal

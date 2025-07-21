@@ -1,0 +1,109 @@
+﻿@page "/debts_tracking" 
+
+ <h3>Debt Management</h3> 
+
+ <div class="debt-management"> 
+     <div class="actions"> 
+         <button @onclick="ShowAddDebtModal">Add Debt</button> 
+     </div> 
+
+     <table class="debt-table"> 
+         <thead> 
+             <tr> 
+                 <th>Source</th> 
+                 <th>Amount</th> 
+                 <th>Due Date</th> 
+                 <th>Status</th> 
+                 <th>Actions</th> 
+             </tr> 
+         </thead> 
+         <tbody> 
+             @foreach (var debt in Debts) 
+             { 
+                 <tr> 
+                     <td>@debt.Source</td> 
+                     <td>@debt.Amount</td> 
+                     <td>@debt.DueDate.ToShortDateString()</td> 
+                     <td>@(debt.IsCleared ? "Cleared" : "Pending")</td> 
+                     <td> 
+                         <button @onclick="() => MarkAsCleared(debt.Id)" disabled="@debt.IsCleared">Clear</button> 
+                         <button @onclick="() => EditDebt(debt.Id)">Edit</button> 
+                         <button @onclick="() => DeleteDebt(debt.Id)">Delete</button> 
+                     </td> 
+                 </tr> 
+             } 
+         </tbody> 
+     </table> 
+ </div> 
+
+  <Modal Visible="@IsModalVisible" OnClose="CloseModal">  
+      <DebtForm @bind-Debt="SelectedDebt" OnSubmit="SaveDebt" />  
+  </Modal> 
+
+ @code { 
+     private List<Debt> Debts = new(); 
+     private Debt SelectedDebt = new(); 
+     private bool IsModalVisible = false; 
+
+     private void ShowAddDebtModal() 
+     { 
+         SelectedDebt = new Debt(); 
+         IsModalVisible = true; 
+     } 
+
+     private void EditDebt(int debtId) 
+     { 
+         SelectedDebt = Debts.FirstOrDefault(d => d.Id == debtId) ?? new Debt(); 
+         IsModalVisible = true; 
+     } 
+
+     private void SaveDebt(Debt debt) 
+     { 
+         if (debt.Id == 0) 
+         { 
+             debt.Id = Debts.Count + 1; // Simulate ID generation 
+             Debts.Add(debt); 
+         } 
+         else 
+         { 
+             var existing = Debts.FirstOrDefault(d => d.Id == debt.Id); 
+             if (existing != null) 
+             { 
+                 existing.Source = debt.Source; 
+                 existing.Amount = debt.Amount; 
+                 existing.DueDate = debt.DueDate; 
+                 existing.IsCleared = debt.IsCleared; 
+             } 
+         } 
+
+         CloseModal(); 
+     } 
+
+     private void DeleteDebt(int debtId) 
+     { 
+         Debts.RemoveAll(d => d.Id == debtId); 
+     } 
+
+     private void MarkAsCleared(int debtId) 
+     { 
+         var debt = Debts.FirstOrDefault(d => d.Id == debtId); 
+         if (debt != null) 
+         { 
+             debt.IsCleared = true; 
+         } 
+     } 
+
+     private void CloseModal() 
+     { 
+         IsModalVisible = false; 
+     } 
+
+     private class Debt 
+     { 
+         public int Id { get; set; } 
+         public string Source { get; set; } 
+        public decimal Amount { get; set; } 
+         public DateTime DueDate { get; set; }
+        public bool IsCleared { get; set; }
+    }
+}

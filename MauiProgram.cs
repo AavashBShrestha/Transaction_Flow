@@ -21,7 +21,7 @@ namespace Transaction_Flow
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
                 var dbPath = Path.Combine(@"D:\Study_Material\Transaction_Flow\Database\", "app.db");
-                options.UseSqlite($"Filename={dbPath}"); // Use SQLite with the provided file path
+                options.UseSqlite($"Filename={dbPath}"); 
             });
 
             builder.Services.AddSingleton<UserService>();
@@ -42,9 +42,9 @@ namespace Transaction_Flow
 
             builder.Services.AddSingleton<DatabaseService>(serviceProvider =>
             {
-                var dbPath = @"D:\Study_Material\Transaction_Flow\Database\app.db"; // ✅ Correct path
+                var dbPath = @"D:\Study_Material\Transaction_Flow\Database\app.db"; 
                 return new DatabaseService(dbPath);
-            })
+            });
 
             var app = builder.Build();
 
@@ -52,7 +52,7 @@ namespace Transaction_Flow
             using (var scope = app.Services.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                dbContext.Database.EnsureCreated(); // Ensure the database is created if it doesn't exist
+                dbContext.Database.EnsureCreated(); 
             }
 
             return app;
